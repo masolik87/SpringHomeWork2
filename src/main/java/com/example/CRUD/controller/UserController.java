@@ -40,6 +40,17 @@ public class UserController {
     @GetMapping("user-delete/{id}")
     public String deleteUser(@PathVariable("id")int id) {
         userService.deleteById(id);
-        return "user-delete/{id}";
+        return "redirect:/users";
+    }
+    @GetMapping("user-update/{id}")
+    String getOne(@PathVariable("id") int id, Model model) {
+        User user = userService.getOne(id);
+        model.addAttribute("user", user);
+        return "user-update";
+    }
+    @PostMapping("/user-update")
+    String updateUser(User user) {
+        userService.updateUser(user);
+        return "redirect:/users";
     }
 }
